@@ -1,4 +1,5 @@
 import 'package:expense_tracker/models/expense.dart';
+import 'package:expense_tracker/widgets/chart/chart.dart';
 import 'package:expense_tracker/widgets/expenses_list/expense_list.dart';
 import 'package:expense_tracker/widgets/new_expense.dart';
 import 'package:flutter/material.dart';
@@ -39,22 +40,26 @@ class _ExpenseState extends State<Expenses> {
       _registeredExpense.remove(expense);
     });
     ScaffoldMessenger.of(context).clearSnackBars();
-    
+
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        duration: const Duration(seconds: 3,),
-        content: const Text('Expense deleted'),
-        action: SnackBarAction(label: 'Undo', onPressed: () {
-          setState(() {
-            _registeredExpense.insert(expenseIndex, expense);
-          });
-        })
-      ),
+          duration: const Duration(
+            seconds: 3,
+          ),
+          content: const Text('Expense deleted'),
+          action: SnackBarAction(
+              label: 'Undo',
+              onPressed: () {
+                setState(() {
+                  _registeredExpense.insert(expenseIndex, expense);
+                });
+              })),
     );
   }
 
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
+        useSafeArea: true,
         isScrollControlled: true,
         context: context,
         builder: (ctx) {
@@ -66,6 +71,8 @@ class _ExpenseState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     Widget mainContent = Center(
       child: Text('No Expense found. Start adding some!'),
     );
@@ -79,17 +86,25 @@ class _ExpenseState extends State<Expenses> {
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: false,
         title: Text('Flutter Expense Tracker'),
         actions: [
           IconButton(onPressed: _openAddExpenseOverlay, icon: Icon(Icons.add)),
         ],
       ),
-      body: Column(
-        children: [
-          Text('Expense'),
-          Expanded(child: mainContent),
-        ],
-      ),
+      body: width < 600
+          ? Column(
+              children: [
+                Chart(expenses: _registeredExpense),
+                Expanded(child: mainContent),
+              ],
+            )
+          : Row(
+              children: [
+                Expanded(child: Chart(expenses: _registeredExpense)),
+                Expanded(child: mainContent),
+              ],
+            ),
     );
   }
 }
