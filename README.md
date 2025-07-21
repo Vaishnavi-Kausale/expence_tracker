@@ -19,5 +19,9 @@ Features
   &nbsp;
   <img src="https://github.com/Vaishnavi-Kausale/expence_tracker/raw/main/1000053696.jpg" width="300"/>
   &nbsp;
-  <img src="https://github.com/Vaishnavi-Kausale/expence_tracker/raw/main/1000053697.jpg" width="300"/>
+  <img src="https://github.com/Vaishnavi-Kausale/expence_tracker/raw/main/10000536.jpg" width="300"/>
 </p>
+
+## 🎬 Demo Video
+
+🎥 [Watch Demo Video](https://github.com/Vaishnavi-Kausale/expence_tracker/raw/main/1000053688.mp4)
